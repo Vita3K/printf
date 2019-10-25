@@ -143,7 +143,7 @@ static inline unsigned int _atoi(const char** str)
 
 
 // internal itoa format
-static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t maxlen, char* buf, size_t len, bool negative, unsigned int base, unsigned int prec, unsigned int width, unsigned int flags)
+static inline size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t maxlen, char* buf, size_t len, bool negative, unsigned int base, unsigned int prec, unsigned int width, unsigned int flags)
 {
   const size_t start_idx = idx;
 
@@ -214,7 +214,7 @@ static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t ma
 
 
 // internal itoa for 'long' type
-static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long value, bool negative, unsigned long base, unsigned int prec, unsigned int width, unsigned int flags)
+static inline size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long value, bool negative, unsigned long base, unsigned int prec, unsigned int width, unsigned int flags)
 {
   char buf[PRINTF_NTOA_BUFFER_SIZE];
   size_t len = 0U;
@@ -234,7 +234,7 @@ static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxl
 
 // internal itoa for 'long long' type
 #if defined(PRINTF_SUPPORT_LONG_LONG)
-static size_t _ntoa_long_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long long value, bool negative, unsigned long long base, unsigned int prec, unsigned int width, unsigned int flags)
+static inline size_t _ntoa_long_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long long value, bool negative, unsigned long long base, unsigned int prec, unsigned int width, unsigned int flags)
 {
   char buf[PRINTF_NTOA_BUFFER_SIZE];
   size_t len = 0U;
@@ -254,7 +254,7 @@ static size_t _ntoa_long_long(out_fct_type out, char* buffer, size_t idx, size_t
 
 
 #if defined(PRINTF_SUPPORT_FLOAT)
-static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec, unsigned int width, unsigned int flags)
+static inline size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec, unsigned int width, unsigned int flags)
 {
   char buf[PRINTF_FTOA_BUFFER_SIZE];
   size_t len  = 0U;
@@ -393,7 +393,7 @@ static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, d
 
 
 // internal vsnprintf
-static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const char* format, CPUState &cpu, MemState &mem, module::vargs &va)
+static inline int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const char* format, CPUState &cpu, MemState &mem, module::vargs &va)
 {
   unsigned int flags, width, precision, n;
   size_t idx = 0U;
@@ -668,7 +668,7 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
  * \param format A string that specifies the format of the output
  * \return The number of characters that are WRITTEN into the buffer, not counting the terminating null character
  */
-int sprintf(char* buffer, const char* format, CPUState &cpu, MemState &mem, module::vargs &args)
+inline int sprintf(char* buffer, const char* format, CPUState &cpu, MemState &mem, module::vargs &args)
 {
   const int ret = _vsnprintf(_out_buffer, buffer, (size_t)-1, format, cpu, mem, args);
   return ret;
@@ -682,7 +682,7 @@ int sprintf(char* buffer, const char* format, CPUState &cpu, MemState &mem, modu
  * \return The number of characters that are WRITTEN into the buffer, not counting the terminating null character
  *         If the formatted string is truncated the buffer size (count) is returned
  */
-int snprintf(char* buffer, size_t count, const char* format, CPUState &cpu, MemState &mem, module::vargs &args)
+inline int snprintf(char* buffer, size_t count, const char* format, CPUState &cpu, MemState &mem, module::vargs &args)
 {
   const int ret = _vsnprintf(_out_buffer, buffer, count, format, cpu, mem, args);
   return ret;
