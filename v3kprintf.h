@@ -597,7 +597,8 @@ static inline int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen
       }
 
       case 's' : {
-        char *p = va.next<Ptr<char>>(cpu, mem).get(mem);
+        const char *p = va.next<Ptr<char>>(cpu, mem).get(mem);
+        p = p != nullptr ? p : "(null)";
         unsigned int l = _strlen(p);
         // pre padding
         if (flags & FLAGS_PRECISION) {
