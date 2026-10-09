@@ -33,7 +33,6 @@
 
 #include <cstdarg>
 #include <cstddef>
-#include <cstdbool>
 #include <cstdint>
 
 #include <module/vargs.h>
